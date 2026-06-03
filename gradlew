@@ -1,2 +1,4 @@
 #!/bin/bash
-./gradle/wrapper/gradle-wrapper.properties
+set -e
+echo "Using system Gradle (CI)"
+gradle "$@"
