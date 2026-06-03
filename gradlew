@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-./gradlew "$@"
+echo "Using Gradle Wrapper"
