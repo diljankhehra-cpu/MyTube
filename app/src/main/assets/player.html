@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Player</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#fff;
+}
+
+iframe{
+width:100%;
+height:250px;
+border:none;
+}
+
+#title{
+font-size:18px;
+font-weight:bold;
+padding:10px;
+}
+
+#channel{
+padding:0 10px;
+color:#666;
+}
+
+#desc{
+padding:10px;
+font-size:14px;
+white-space:pre-wrap;
+}
+</style>
+</head>
+<body>
+
+<iframe id="player" allowfullscreen></iframe>
+
+<div id="title"></div>
+<div id="channel"></div>
+<div id="desc"></div>
+
+<script>
+const API_KEY="AIzaSyDMI6S9ou1Mx7ChMoOYjrUqVe---OZKSzY";
+
+const id=
+new URLSearchParams(location.search).get("vid");
+
+document.getElementById("player").src=
+`https://www.youtube.com/embed/${id}`;
+
+async function loadInfo(){
+
+try{
+
+const url=
+`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${id}&key=${API_KEY}`;
+
+const res=await fetch(url);
+const data=await res.json();
+
+if(data.items.length){
+
+const v=data.items[0];
+
+document.getElementById("title").innerText=
+v.snippet.title;
+
+document.getElementById("channel").innerText=
+v.snippet.channelTitle;
+
+document.getElementById("desc").innerText=
+v.snippet.description;
+}
+
+}catch(e){}
+}
+
+loadInfo();
+</script>
+
+</body>
+</html>
